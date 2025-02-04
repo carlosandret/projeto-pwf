@@ -27,7 +27,7 @@ async function buscarAutores(autorId) {
     }
     // Transforma os dados em json
     let autores = await response.json();
-
+    // console.log(autores)
     return autores
     } catch (error) {
         console.error('Erro ao buscar autores:', error);
@@ -65,12 +65,33 @@ async function exibePosts() {
         titulo.innerHTML = post.title.toUpperCase();
         body.innerHTML = post.body;
 
+        // Criação do link para buscar os dados do altor
         let autor = await buscarAutores(post.userId);
 
-        conteudo.innerHTML = `
-            <p><strong>AUTOR DO POST:</strong> ${autor.username}</p>
-            <p><strong>EMAIL:</strong> ${autor.email}</p>
-            `;
+        let dadosAutor = getByID(`dadosAutor${i}`);
+        dadosAutor.addEventListener('click', async(funcao) => {
+            funcao.preventDefault();
+
+            if (conteudo.style.display === 'none'){
+
+                conteudo.innerHTML = `<h3>Dados do autor: </h3>
+                    <p><strong>Nome do autor:</strong> ${autor.name}</p>
+                    <p><strong>Email: </strong>${autor.email}</p>
+                    <p><strong>Telefone do autor:</strong> ${autor.phone}</p>`;
+
+                conteudo.style.display = 'block';
+                dadosAutor.textContent = 'Ocultar dados do autor';
+            } else {
+                // Oculta os comentários
+                conteudo.style.display = 'none';
+                dadosAutor.textContent = 'Buscar dados do autor';
+            } ;
+        });
+    
+        // conteudo.innerHTML = `
+        //     <p><strong>AUTOR:</strong> ${autor.username}</p>
+        //     <p><strong>EMAIL:</strong> ${autor.email}</p>
+        //     `;
 
         // Inclusão de comentários
         try {   
@@ -91,18 +112,17 @@ async function exibePosts() {
                     });
 
                     divcomentarios.style.display = 'block';
-                    linkComentario.textContent = 'Ocultar comentários';
+                    linkComentario.textContent = 'Ocultar comentários'
                 } else {
                     // Oculta os comentários
                     divcomentarios.style.display = 'none';
-                    linkComentario.textContent = 'Acessar comentários';
-                }
-                    
+                    linkComentario.textContent = 'Acessar comentários'
+                }                    
             })
         } catch (error) {
             listaComentarios.innerHTML = `<p>Erro: ${error.message}</p>`;
-        }      
+        };     
     };
-}
+};
 
 exibePosts()
