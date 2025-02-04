@@ -60,12 +60,12 @@ async function exibePosts() {
         let conteudo = getByID(`conteudo${i}`);
 
         // Pegar o post correspondente
-        let post = posts[i - 1]
+        let post = posts[i - 1];
 
-        titulo.innerHTML = post.title;
+        titulo.innerHTML = post.title.toUpperCase();
         body.innerHTML = post.body;
 
-        let autor = await buscarAutores(post.userId)
+        let autor = await buscarAutores(post.userId);
 
         conteudo.innerHTML = `
             <p><strong>AUTOR DO POST:</strong> ${autor.username}</p>
@@ -91,11 +91,11 @@ async function exibePosts() {
                     });
 
                     divcomentarios.style.display = 'block';
-                    linkComentario.textContent = 'Ocultar comentários'
+                    linkComentario.textContent = 'Ocultar comentários';
                 } else {
                     // Oculta os comentários
                     divcomentarios.style.display = 'none';
-                    linkComentario.textContent = 'Acessar comentários'
+                    linkComentario.textContent = 'Acessar comentários';
                 }
                     
             })
