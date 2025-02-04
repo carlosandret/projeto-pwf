@@ -68,7 +68,7 @@ async function exibePosts() {
         let autor = await buscarAutores(post.userId)
 
         conteudo.innerHTML = `
-            <p><strong>AUTOR:</strong> ${autor.username}</p>
+            <p><strong>AUTOR DO POST:</strong> ${autor.username}</p>
             <p><strong>EMAIL:</strong> ${autor.email}</p>
             `;
 
